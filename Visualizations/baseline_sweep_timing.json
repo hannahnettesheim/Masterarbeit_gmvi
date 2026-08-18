@@ -1,0 +1,272 @@
+{
+  "Exact Marginalization (MC=1024)": {
+    "ms_per_step": 12.10468083852902,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Score Function": {
+    "ms_per_step": 3.5282266791909933,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Score Function + RLOO": {
+    "ms_per_step": 3.4606758411973715,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Gumbel-Softmax (soft, tau=2.0)": {
+    "ms_per_step": 3.361762498971075,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Gumbel-Softmax (soft, tau=1.0)": {
+    "ms_per_step": 3.303200821392238,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Gumbel-Softmax (soft, tau=0.5)": {
+    "ms_per_step": 3.375759180635214,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Gumbel-Softmax (soft, tau=0.3)": {
+    "ms_per_step": 3.340711679775268,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Gumbel-Softmax (soft, tau=0.1)": {
+    "ms_per_step": 3.377639160025865,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Gumbel-Softmax (soft, annealed)": {
+    "ms_per_step": 3.307282500900328,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Straight-Through (tau=2.0)": {
+    "ms_per_step": 3.385814179200679,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Straight-Through (tau=1.0)": {
+    "ms_per_step": 3.436291660182178,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Straight-Through (tau=0.5)": {
+    "ms_per_step": 3.4095308207906783,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Straight-Through (tau=0.3)": {
+    "ms_per_step": 3.401248340960592,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Straight-Through (tau=0.1)": {
+    "ms_per_step": 3.3984616794623435,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "Straight-Through (annealed)": {
+    "ms_per_step": 3.419394998345524,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear euler (steps=4)": {
+    "ms_per_step": 5.894620839972049,
+    "nfe_per_step": 4.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear euler (steps=8)": {
+    "ms_per_step": 8.592230000067502,
+    "nfe_per_step": 8.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear euler (steps=16)": {
+    "ms_per_step": 13.703445000573993,
+    "nfe_per_step": 16.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear euler (steps=32)": {
+    "ms_per_step": 23.44021499855444,
+    "nfe_per_step": 32.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear midpoint (steps=4)": {
+    "ms_per_step": 8.327520820312202,
+    "nfe_per_step": 8.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear midpoint (steps=8)": {
+    "ms_per_step": 13.44155249884352,
+    "nfe_per_step": 16.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear rk4 (steps=4)": {
+    "ms_per_step": 15.616890001110733,
+    "nfe_per_step": 16.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear rk4 (steps=8)": {
+    "ms_per_step": 24.7433999995701,
+    "nfe_per_step": 32.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE linear dopri5": {
+    "ms_per_step": 28.021757500246167,
+    "nfe_per_step": 32.12,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric euler (steps=4)": {
+    "ms_per_step": 5.6298650009557605,
+    "nfe_per_step": 4.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric euler (steps=8)": {
+    "ms_per_step": 8.462914999108762,
+    "nfe_per_step": 8.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric euler (steps=16)": {
+    "ms_per_step": 14.043696660082787,
+    "nfe_per_step": 16.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric euler (steps=32)": {
+    "ms_per_step": 26.299718338996172,
+    "nfe_per_step": 32.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric midpoint (steps=4)": {
+    "ms_per_step": 8.428958340082318,
+    "nfe_per_step": 8.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric midpoint (steps=8)": {
+    "ms_per_step": 14.07074831891805,
+    "nfe_per_step": 16.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric rk4 (steps=4)": {
+    "ms_per_step": 14.202271660324186,
+    "nfe_per_step": 16.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric rk4 (steps=8)": {
+    "ms_per_step": 25.957667499314994,
+    "nfe_per_step": 32.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ODE geometric dopri5": {
+    "ms_per_step": 29.151069179642946,
+    "nfe_per_step": 32.72,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "score_function (MC=64)": {
+    "ms_per_step": 3.4280866594053805,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "score_function (MC=1024)": {
+    "ms_per_step": 3.9848800003528595,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "score_function_rloo (MC=64)": {
+    "ms_per_step": 3.370839999988675,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "score_function_rloo (MC=1024)": {
+    "ms_per_step": 3.891588340047747,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "gs_soft_tau0.5 (MC=64)": {
+    "ms_per_step": 3.3008266612887383,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "gs_soft_tau0.5 (MC=1024)": {
+    "ms_per_step": 3.97225831868127,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "st_tau0.5 (MC=64)": {
+    "ms_per_step": 3.40008000144735,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "st_tau0.5 (MC=1024)": {
+    "ms_per_step": 4.307345838751644,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ode_linear_midpoint4 (MC=64)": {
+    "ms_per_step": 8.297555840108544,
+    "nfe_per_step": 8.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "ode_linear_midpoint4 (MC=1024)": {
+    "ms_per_step": 11.737885000184178,
+    "nfe_per_step": 8.0,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "exact_marg (MC=64)": {
+    "ms_per_step": 10.330135840922594,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  },
+  "exact_marg (MC=256)": {
+    "ms_per_step": 10.389765000436455,
+    "nfe_per_step": null,
+    "fixed_threads": 4,
+    "seed": 1
+  }
+}
