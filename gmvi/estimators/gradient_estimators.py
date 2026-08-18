@@ -193,11 +193,26 @@ class GumbelSoftmaxEstimator:
     introduces a different approximation. We prefer the STE-style fix as it
     keeps the ELBO evaluation unbiased.
 
+    mode='straight_through' (default) is the estimator described above.
+    mode='soft' is the textbook Gumbel-Softmax gradient estimator as
+    formally defined in the thesis (def:gumbel_softmax_estimator): z = z_soft
+    directly (no hard/detach mixing), ELBO evaluated at z_soft using the
+    *true* mixture density log q_theta(z_soft) = model.log_prob(z_soft).
+    This is the biased estimator the correctness note above works around --
+    z_soft can land in a low-density valley between components, so
+    -log q(z_soft) can be huge and the loss/gradient can spike. That
+    instability is itself part of what distinguishes the two estimators'
+    claims, not a bug to paper over, so mode='soft' does not apply the
+    straight-through fix.
+
     Args:
         n_samples:       MC samples per estimate
         temperature:     Gumbel-Softmax temperature τ (lower = harder)
         anneal_rate:     multiplicative decay per step
         min_temperature: floor for annealing
+        mode:            'straight_through' (hard fwd/soft bwd, ELBO at
+                         z_hard) or 'soft' (plain relaxation, ELBO at z_soft
+                         via the true mixture density)
     """
     name = "gumbel_softmax"
 
@@ -208,12 +223,15 @@ class GumbelSoftmaxEstimator:
         anneal_rate: float = 0.9995,
         min_temperature: float = 0.3,
         sample_mode: SampleMode = "mc",
+        mode: Literal["straight_through", "soft"] = "straight_through",
     ):
         self.MC_samples = MC_samples
         self.temperature = temperature
         self.anneal_rate = anneal_rate
         self.min_temperature = min_temperature
         self.sample_mode = sample_mode
+        assert mode in ("straight_through", "soft")
+        self.mode = mode
         self._step = 0
 
     def _current_temp(self) -> float:
@@ -248,14 +266,20 @@ class GumbelSoftmaxEstimator:
 
         z_soft = (soft_w.unsqueeze(-1) * z_per_comp).sum(dim=1)  # (N, D)
 
-        hard_w = F.one_hot(soft_w.argmax(dim=-1), K).float()  # (N, K)
-        z_hard = (hard_w.unsqueeze(-1) * z_per_comp).sum(dim=1)  # (N, D)
+        if self.mode == "straight_through":
+            hard_w = F.one_hot(soft_w.argmax(dim=-1), K).float()  # (N, K)
+            z_hard = (hard_w.unsqueeze(-1) * z_per_comp).sum(dim=1)  # (N, D)
+            z = z_soft + (z_hard - z_soft).detach()
+            # ELBO evaluated at z_hard (value-wise); gradients flow through z_soft
+            elbo = _elbo_samples(model, log_target, z)
+        else:
+            # mode='soft': textbook Gumbel-Softmax estimator (def:gumbel_softmax_estimator).
+            # ELBO at z_soft using the TRUE mixture density -- biased, and can spike
+            # when z_soft lands between components; that's the point of this arm.
+            log_p = log_target(z_soft)
+            log_q = model.log_prob(z_soft)
+            elbo = log_p - log_q
 
-        z = z_soft + (z_hard - z_soft).detach()
-        
-
-        # ELBO evaluated at z_soft (standard Gumbel-Softmax, gradients flow through z_soft)
-        elbo = _elbo_samples(model, log_target, z)
         loss = -elbo.mean()
 
         return loss, {
@@ -477,6 +501,79 @@ def _velocity_geometric(
     return (gamma[:, :, None] * v_jt).sum(dim=1)                    # (N, D)
 
 
+def _velocity_general_cached(
+    x: Tensor,              # (N, D)
+    t: float,
+    log_weights: Tensor,    # (K,)
+    a_stack: Tensor,        # (K, D)   -- static, precomputed once per grad step
+    A_stack: Tensor,        # (K, D, D) -- static, precomputed once per grad step
+    ref_log_prob: Callable,
+) -> Tensor:
+    """
+    Same math as _velocity_general, but takes the per-component a_j/A_j as
+    precomputed (K, ...) stacks instead of re-deriving them from `components`
+    (i.e. re-running get_A(), which for matrixexponential/eigenvaluedecomp is
+    a matrix_exp / Cayley-map call) on every invocation. The caller is
+    expected to compute a_stack/A_stack ONCE per gradient step -- A_j is
+    t-independent, so recomputing it at every one of the ode_steps x
+    stages-per-step calls to the velocity field is pure waste. Vectorized
+    over K via batched matmul instead of a Python loop.
+    """
+    N, D = x.shape
+    K = a_stack.shape[0]
+    I = torch.eye(D, device=x.device, dtype=x.dtype)
+
+    A_jt = t * A_stack + (1.0 - t) * I                     # (K, D, D)
+    A_jt_inv = torch.linalg.inv(A_jt)                      # (K, D, D)
+    logdet = torch.linalg.slogdet(A_jt)[1]                 # (K,)
+
+    x_shift = x[:, None, :] - t * a_stack[None, :, :]       # (N, K, D)
+    z = torch.einsum("nkd,ked->nke", x_shift, A_jt_inv)     # (N, K, D)
+
+    log_ref = ref_log_prob(z.reshape(N * K, D)).reshape(N, K)
+    log_rho_jt = log_ref - logdet[None, :]
+
+    log_w = torch.log_softmax(log_weights, dim=0)
+    gamma = torch.softmax(log_w[None, :] + log_rho_jt, dim=1)  # (N, K)
+
+    v_jt = a_stack[None, :, :] + torch.einsum("nkd,ked->nke", z, A_stack - I)
+
+    return (gamma[:, :, None] * v_jt).sum(dim=1)
+
+
+def _velocity_geometric_cached(
+    x: Tensor,              # (N, D)
+    t: float,
+    log_weights: Tensor,    # (K,)
+    a_stack: Tensor,        # (K, D)    -- static
+    log_A_stack: Tensor,    # (K, D, D) -- static, = log(A_j), precomputed once
+    logdet_A_stack: Tensor, # (K,)      -- static, = log|det A_j|, precomputed once
+    ref_log_prob: Callable,
+) -> Tensor:
+    """Cached/vectorized analogue of _velocity_geometric -- see
+    _velocity_general_cached's docstring for the rationale. The
+    t-dependent matrix_exp(-t * log_A_j) itself is irreducibly per-stage
+    (it genuinely depends on t), but log_A_j and log|det A_j| no longer are."""
+    N, D = x.shape
+    K = a_stack.shape[0]
+
+    A_jt_inv = torch.linalg.matrix_exp(-t * log_A_stack)   # (K, D, D)
+    logdet = t * logdet_A_stack                              # (K,)
+
+    x_shift = x[:, None, :] - t * a_stack[None, :, :]        # (N, K, D)
+    z = torch.einsum("nkd,ked->nke", x_shift, A_jt_inv)      # (N, K, D)
+
+    log_ref = ref_log_prob(z.reshape(N * K, D)).reshape(N, K)
+    log_rho_jt = log_ref - logdet[None, :]
+
+    log_w = torch.log_softmax(log_weights, dim=0)
+    gamma = torch.softmax(log_w[None, :] + log_rho_jt, dim=1)
+
+    v_jt = a_stack[None, :, :] + torch.einsum("nkd,ked->nke", x_shift, log_A_stack)
+
+    return (gamma[:, :, None] * v_jt).sum(dim=1)
+
+
 def velocity(
     x: Tensor,
     t: float,
@@ -519,14 +616,62 @@ def velocity(
 # ─── Integrators ───────────────────────────────────────────────────────────────
 
 class _VelocityFunc(nn.Module):
-    """Wraps velocity() in the (t, x) -> dx signature torchdiffeq expects."""
+    """Wraps velocity() in the (t, x) -> dx signature torchdiffeq expects.
+
+    Precomputes the per-component static matrices (A_j for the linear path;
+    log_A_j and log|det A_j| for the geometric path) ONCE here, since
+    integrate_ode() constructs a fresh _VelocityFunc per gradient step and
+    this instance's forward() is then called once per RK stage per
+    ode_step (e.g. 4x per step for rk4, more for dopri5). A_j is
+    t-independent, so recomputing get_A()/get_log_A() -- a matrix_exp or
+    Cayley-map call per component -- at every stage was pure waste; see
+    BASELINE_SWEEP.md section 0.1. The diagonal param_type path is already
+    cheap (no matrix ops) and is left as before.
+    """
     def __init__(self, model: GeneralizedMixture, path: Literal["linear", "geometric"] = "linear"):
         super().__init__()
         self.model = model
         self.path  = path
+        self.diagonal = model.param_type == "diagonal"
+        self.nfe = 0  # velocity-field evaluations so far; implementation-independent compute axis
+
+        if not self.diagonal:
+            self.a_stack = torch.stack([c.a for c in model.components])              # (K, D)
+            if path == "geometric":
+                self.log_A_stack = torch.stack([c.get_log_A() for c in model.components])      # (K, D, D)
+                self.logdet_A_stack = torch.stack([c.log_abs_det() for c in model.components])  # (K,)
+            else:
+                self.A_stack = torch.stack([c.get_A() for c in model.components])    # (K, D, D)
 
     def forward(self, t: Tensor, x: Tensor) -> Tensor:
-        return velocity(x, t.item(), self.model, path=self.path)
+        self.nfe += 1
+        t_val = t.item()
+        model = self.model
+
+        if self.diagonal:
+            if self.path == "geometric":
+                log_diags = torch.stack([c.log_diag for c in model.components])
+                return _velocity_geometric_diagonal(
+                    x, t_val, model.log_weights, model.means, log_diags,
+                    model.reference.log_prob,
+                )
+            else:
+                scales = torch.stack([torch.exp(c.log_diag) for c in model.components])
+                return _velocity_diagonal(
+                    x, t_val, model.log_weights, model.means, scales,
+                    model.reference.log_prob,
+                )
+        else:
+            if self.path == "geometric":
+                return _velocity_geometric_cached(
+                    x, t_val, model.log_weights, self.a_stack, self.log_A_stack,
+                    self.logdet_A_stack, model.reference.log_prob,
+                )
+            else:
+                return _velocity_general_cached(
+                    x, t_val, model.log_weights, self.a_stack, self.A_stack,
+                    model.reference.log_prob,
+                )
 
 
 ADAPTIVE_SOLVERS = {"dopri5", "dopri8", "bosh3", "fehlberg2", "adaptive_heun"}
@@ -540,7 +685,8 @@ def integrate_ode(
     ode_solver: Literal["euler", "midpoint", "rk4", "dopri5"] = "rk4",
     rtol: float = 1e-5,
     atol: float = 1e-7,
-) -> Tensor:
+    return_nfe: bool = False,
+):
     func = _VelocityFunc(model, path=path)
     if ode_solver in ADAPTIVE_SOLVERS:
         # Adaptive solvers pick their own internal step size; ode_steps doesn't
@@ -550,6 +696,8 @@ def integrate_ode(
     else:
         t_span = torch.linspace(0.0, 1.0, ode_steps + 1, device=x0.device, dtype=x0.dtype)
         x1 = odeint(func, x0, t_span, method=ode_solver)
+    if return_nfe:
+        return x1[-1], func.nfe
     return x1[-1]
 
 
@@ -605,9 +753,9 @@ class ODETransportEstimator:
         with torch.no_grad():
             x0 = _ref_sample(N, model, self.sample_mode)          # (N, D), no grad needed
 
-        x1 = integrate_ode(x0, model, ode_steps=self.ode_steps, path=self.path,
-                            ode_solver=self.ode_solver,
-                            rtol=self.rtol, atol=self.atol)  # (N, D)
+        x1, nfe = integrate_ode(x0, model, ode_steps=self.ode_steps, path=self.path,
+                                 ode_solver=self.ode_solver,
+                                 rtol=self.rtol, atol=self.atol, return_nfe=True)  # (N, D)
 
         # ELBO: both terms evaluated at x1
         log_p = log_target(x1)                                    # (N,)
@@ -621,6 +769,7 @@ class ODETransportEstimator:
             "elbo_std": elbo.std().item(),
             "log_p":    log_p.mean().item(),
             "log_q":    log_q.mean().item(),
+            "nfe":      nfe,
         }
 
     def transport(

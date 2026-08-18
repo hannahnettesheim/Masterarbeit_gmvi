@@ -72,6 +72,10 @@ MC_SAMPLES      = 256
 LR              = 5e-3
 ODE_STEPS_SWEEP = [4, 8, 16, 32]
 SOLVERS         = ["euler", "midpoint", "rk4"]
+# Euler stays in SOLVERS (already trained/cached, kept in the table/CSV/XLSX);
+# it's just excluded from the plots below since its steps=4 outlier squashes
+# the rest of the comparison on a linear y-axis.
+PLOT_SOLVERS    = ["midpoint", "rk4"]
 PATHS           = ["linear", "geometric"]
 TAUS            = [2.0, 1.0, 0.5, 0.3, 0.1]
 
@@ -86,6 +90,7 @@ baseline_colors = {
     "Straight-Through (annealed)": "#457B9D",
 }
 dopri5_color = "#264653"
+rk4_light_color = "#9BD4C9"  # steps=8 in the training-budget plot (steps=32 uses solver_colors["rk4"])
 
 
 # ── Build the full job list: 34 configs x len(SEEDS) seeds ─────────────────────
@@ -294,7 +299,7 @@ fig, axes = plt.subplots(2, 2, figsize=(TEXTWIDTH_IN, TEXTWIDTH_IN * 0.85),
 for row, path in enumerate(PATHS):
     ax_steps, ax_time = axes[row]
     sub = final_tbl[final_tbl.path == path]
-    for solver in SOLVERS:
+    for solver in PLOT_SOLVERS:
         s = sub[sub.solver == solver].sort_values("ode_steps")
         ax_steps.errorbar(s.ode_steps, s.kl_mean, yerr=s.kl_std,
                            color=solver_colors[solver], marker=solver_markers[solver],
@@ -345,7 +350,7 @@ for path in PATHS:
         s = agg_df[(agg_df.config == f"ODE {path} rk4 (steps={steps})")].sort_values("n_steps")
         ax.errorbar(s.n_steps, s.kl_mean, yerr=s.kl_std,
                     linestyle=path_linestyle[path],
-                    color=solver_colors["rk4"] if steps == 32 else solver_colors["euler"],
+                    color=solver_colors["rk4"] if steps == 32 else rk4_light_color,
                     marker="^", label=f"{path} rk4 (steps={steps})", capsize=2)
 for label, color in baseline_colors.items():
     s = agg_df[agg_df.config == label].sort_values("n_steps")
