@@ -1,0 +1,811 @@
+{
+  "Exact Marginalization": {
+    "2": {
+      "meta": {},
+      "checkpoints": {
+        "200": {
+          "elbo": -0.537120521068573,
+          "elbo_mc_stderr": 0.029108926653862,
+          "cumulative_train_s": 1.691934583010152,
+          "ms_per_step": 8.45967291505076
+        },
+        "400": {
+          "elbo": -0.16145214438438416,
+          "elbo_mc_stderr": 0.00593496672809124,
+          "cumulative_train_s": 3.3554419160354882,
+          "ms_per_step": 8.38860479008872
+        },
+        "800": {
+          "elbo": -0.0955299660563469,
+          "elbo_mc_stderr": 0.004608700983226299,
+          "cumulative_train_s": 6.70900787494611,
+          "ms_per_step": 8.386259843682637
+        },
+        "1600": {
+          "elbo": -0.056907061487436295,
+          "elbo_mc_stderr": 0.003381337970495224,
+          "cumulative_train_s": 13.602953457972035,
+          "ms_per_step": 8.501845911232522
+        },
+        "3200": {
+          "elbo": -0.042691294103860855,
+          "elbo_mc_stderr": 0.002501518465578556,
+          "cumulative_train_s": 27.295183207956143,
+          "ms_per_step": 8.529744752486295
+        }
+      }
+    }
+  },
+  "Straight-Through (tau=2.0)": {
+    "1": {
+      "meta": {
+        "tau": 2.0
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.9868971109390259,
+          "elbo_mc_stderr": 0.05382886528968811,
+          "cumulative_train_s": 0.6114052089396864,
+          "ms_per_step": 3.057026044698432
+        },
+        "400": {
+          "elbo": -0.2988157868385315,
+          "elbo_mc_stderr": 0.009526819922029972,
+          "cumulative_train_s": 1.2295161669608206,
+          "ms_per_step": 3.0737904174020514
+        },
+        "800": {
+          "elbo": -0.1788998246192932,
+          "elbo_mc_stderr": 0.005740037187933922,
+          "cumulative_train_s": 2.475316916941665,
+          "ms_per_step": 3.0941461461770814
+        },
+        "1600": {
+          "elbo": -0.1210511177778244,
+          "elbo_mc_stderr": 0.004813144914805889,
+          "cumulative_train_s": 4.947144042002037,
+          "ms_per_step": 3.0919650262512732
+        },
+        "3200": {
+          "elbo": -0.10933053493499756,
+          "elbo_mc_stderr": 0.004756552167236805,
+          "cumulative_train_s": 9.89616408396978,
+          "ms_per_step": 3.092551276240556
+        }
+      }
+    }
+  },
+  "Straight-Through (tau=1.0)": {
+    "3": {
+      "meta": {
+        "tau": 1.0
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -1.0406346321105957,
+          "elbo_mc_stderr": 0.033535707741975784,
+          "cumulative_train_s": 0.6190904999384657,
+          "ms_per_step": 3.0954524996923283
+        },
+        "400": {
+          "elbo": -0.4271013140678406,
+          "elbo_mc_stderr": 0.010758299380540848,
+          "cumulative_train_s": 1.2332570829894394,
+          "ms_per_step": 3.0831427074735984
+        },
+        "800": {
+          "elbo": -0.18626846373081207,
+          "elbo_mc_stderr": 0.004520191345363855,
+          "cumulative_train_s": 2.454071250045672,
+          "ms_per_step": 3.06758906255709
+        },
+        "1600": {
+          "elbo": -0.089940644800663,
+          "elbo_mc_stderr": 0.00404343381524086,
+          "cumulative_train_s": 4.970446832943708,
+          "ms_per_step": 3.1065292705898173
+        },
+        "3200": {
+          "elbo": -0.06756138801574707,
+          "elbo_mc_stderr": 0.003277810290455818,
+          "cumulative_train_s": 9.908598665962927,
+          "ms_per_step": 3.0964370831134147
+        }
+      }
+    }
+  },
+  "Straight-Through (tau=0.3)": {
+    "2": {
+      "meta": {
+        "tau": 0.3
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.8088197708129883,
+          "elbo_mc_stderr": 0.040388256311416626,
+          "cumulative_train_s": 0.6065310830017552,
+          "ms_per_step": 3.032655415008776
+        },
+        "400": {
+          "elbo": -0.2176923304796219,
+          "elbo_mc_stderr": 0.006789752747863531,
+          "cumulative_train_s": 1.2164562500547618,
+          "ms_per_step": 3.0411406251369044
+        },
+        "800": {
+          "elbo": -0.11498865485191345,
+          "elbo_mc_stderr": 0.004742813296616077,
+          "cumulative_train_s": 2.4395703750196844,
+          "ms_per_step": 3.0494629687746055
+        },
+        "1600": {
+          "elbo": -0.10368198156356812,
+          "elbo_mc_stderr": 0.0042487503960728645,
+          "cumulative_train_s": 4.882574708084576,
+          "ms_per_step": 3.05160919255286
+        },
+        "3200": {
+          "elbo": -0.08394083380699158,
+          "elbo_mc_stderr": 0.004556611645966768,
+          "cumulative_train_s": 9.994487832998857,
+          "ms_per_step": 3.123277447812143
+        }
+      }
+    }
+  },
+  "ODE linear euler (steps=4)": {
+    "1": {
+      "meta": {
+        "path": "linear",
+        "solver": "euler",
+        "ode_steps": 4
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.606353759765625,
+          "elbo_mc_stderr": 0.04212675616145134,
+          "cumulative_train_s": 2.3104509169934317,
+          "ms_per_step": 11.552254584967159
+        },
+        "400": {
+          "elbo": -0.40902185440063477,
+          "elbo_mc_stderr": 0.01361587829887867,
+          "cumulative_train_s": 4.686799749964848,
+          "ms_per_step": 11.71699937491212
+        },
+        "800": {
+          "elbo": -0.697018027305603,
+          "elbo_mc_stderr": 0.009955122135579586,
+          "cumulative_train_s": 9.29406987503171,
+          "ms_per_step": 11.617587343789637
+        },
+        "1600": {
+          "elbo": -5.3861846923828125,
+          "elbo_mc_stderr": 0.07551883906126022,
+          "cumulative_train_s": 18.541352750035003,
+          "ms_per_step": 11.588345468771877
+        },
+        "3200": {
+          "elbo": -9.337350845336914,
+          "elbo_mc_stderr": 0.09359419345855713,
+          "cumulative_train_s": 36.74087329197209,
+          "ms_per_step": 11.48152290374128
+        }
+      }
+    }
+  },
+  "ODE linear euler (steps=8)": {
+    "3": {
+      "meta": {
+        "path": "linear",
+        "solver": "euler",
+        "ode_steps": 8
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.6161104440689087,
+          "elbo_mc_stderr": 0.017932461574673653,
+          "cumulative_train_s": 4.2057564170099795,
+          "ms_per_step": 21.028782085049897
+        },
+        "400": {
+          "elbo": -0.2501695156097412,
+          "elbo_mc_stderr": 0.007461393717676401,
+          "cumulative_train_s": 8.370846207952127,
+          "ms_per_step": 20.927115519880317
+        },
+        "800": {
+          "elbo": -0.14558932185173035,
+          "elbo_mc_stderr": 0.005985741503536701,
+          "cumulative_train_s": 16.5710053750081,
+          "ms_per_step": 20.713756718760123
+        },
+        "1600": {
+          "elbo": -0.10220320522785187,
+          "elbo_mc_stderr": 0.004181303083896637,
+          "cumulative_train_s": 33.04150158294942,
+          "ms_per_step": 20.65093848934339
+        },
+        "3200": {
+          "elbo": -0.08431210368871689,
+          "elbo_mc_stderr": 0.004176117479801178,
+          "cumulative_train_s": 65.61628616694361,
+          "ms_per_step": 20.505089427169878
+        }
+      }
+    }
+  },
+  "ODE linear euler (steps=32)": {
+    "2": {
+      "meta": {
+        "path": "linear",
+        "solver": "euler",
+        "ode_steps": 32
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.755558431148529,
+          "elbo_mc_stderr": 0.0315651036798954,
+          "cumulative_train_s": 15.161664707935415,
+          "ms_per_step": 75.80832353967708
+        },
+        "400": {
+          "elbo": -0.21624784171581268,
+          "elbo_mc_stderr": 0.008034574799239635,
+          "cumulative_train_s": 30.313142915954813,
+          "ms_per_step": 75.78285728988703
+        },
+        "800": {
+          "elbo": -0.11186133325099945,
+          "elbo_mc_stderr": 0.0039006134029477835,
+          "cumulative_train_s": 58.778185582952574,
+          "ms_per_step": 73.47273197869072
+        },
+        "1600": {
+          "elbo": -0.08742225915193558,
+          "elbo_mc_stderr": 0.004111448302865028,
+          "cumulative_train_s": 103.15762137493584,
+          "ms_per_step": 64.4735133593349
+        },
+        "3200": {
+          "elbo": -0.06227022781968117,
+          "elbo_mc_stderr": 0.0037411756347864866,
+          "cumulative_train_s": 192.21306687500328,
+          "ms_per_step": 60.066583398438524
+        }
+      }
+    }
+  },
+  "ODE linear midpoint (steps=8)": {
+    "1": {
+      "meta": {
+        "path": "linear",
+        "solver": "midpoint",
+        "ode_steps": 8
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.5692188143730164,
+          "elbo_mc_stderr": 0.03284313157200813,
+          "cumulative_train_s": 5.548922667047009,
+          "ms_per_step": 27.744613335235044
+        },
+        "400": {
+          "elbo": -0.1715412139892578,
+          "elbo_mc_stderr": 0.005529534071683884,
+          "cumulative_train_s": 11.076556041953154,
+          "ms_per_step": 27.691390104882885
+        },
+        "800": {
+          "elbo": -0.10896114259958267,
+          "elbo_mc_stderr": 0.0045891921035945415,
+          "cumulative_train_s": 22.156394083052874,
+          "ms_per_step": 27.695492603816092
+        },
+        "1600": {
+          "elbo": -0.07501595467329025,
+          "elbo_mc_stderr": 0.00368665624409914,
+          "cumulative_train_s": 44.361631875042804,
+          "ms_per_step": 27.726019921901752
+        },
+        "3200": {
+          "elbo": -0.06624092161655426,
+          "elbo_mc_stderr": 0.003234798088669777,
+          "cumulative_train_s": 88.69288695801515,
+          "ms_per_step": 27.716527174379735
+        }
+      }
+    }
+  },
+  "ODE linear midpoint (steps=16)": {
+    "3": {
+      "meta": {
+        "path": "linear",
+        "solver": "midpoint",
+        "ode_steps": 16
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.685219407081604,
+          "elbo_mc_stderr": 0.019435659050941467,
+          "cumulative_train_s": 11.02267374994699,
+          "ms_per_step": 55.113368749734946
+        },
+        "400": {
+          "elbo": -0.31145912408828735,
+          "elbo_mc_stderr": 0.00942754466086626,
+          "cumulative_train_s": 21.94495137501508,
+          "ms_per_step": 54.8623784375377
+        },
+        "800": {
+          "elbo": -0.10388921201229095,
+          "elbo_mc_stderr": 0.004276014864444733,
+          "cumulative_train_s": 43.87475154094864,
+          "ms_per_step": 54.843439426185796
+        },
+        "1600": {
+          "elbo": -0.05109607055783272,
+          "elbo_mc_stderr": 0.0025219351518899202,
+          "cumulative_train_s": 87.70025645801798,
+          "ms_per_step": 54.812660286261234
+        },
+        "3200": {
+          "elbo": -0.044735610485076904,
+          "elbo_mc_stderr": 0.0027176663279533386,
+          "cumulative_train_s": 175.78356804104988,
+          "ms_per_step": 54.932365012828086
+        }
+      }
+    }
+  },
+  "ODE linear rk4 (steps=4)": {
+    "2": {
+      "meta": {
+        "path": "linear",
+        "solver": "rk4",
+        "ode_steps": 4
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.7684476375579834,
+          "elbo_mc_stderr": 0.03170422464609146,
+          "cumulative_train_s": 5.636585833039135,
+          "ms_per_step": 28.182929165195674
+        },
+        "400": {
+          "elbo": -0.2099141925573349,
+          "elbo_mc_stderr": 0.007748542819172144,
+          "cumulative_train_s": 11.38975241605658,
+          "ms_per_step": 28.474381040141452
+        },
+        "800": {
+          "elbo": -0.11283484101295471,
+          "elbo_mc_stderr": 0.0038990378379821777,
+          "cumulative_train_s": 22.432424125028774,
+          "ms_per_step": 28.040530156285968
+        },
+        "1600": {
+          "elbo": -0.08063296228647232,
+          "elbo_mc_stderr": 0.0038028331473469734,
+          "cumulative_train_s": 44.766720707993954,
+          "ms_per_step": 27.97920044249622
+        },
+        "3200": {
+          "elbo": -0.05679157003760338,
+          "elbo_mc_stderr": 0.003491345327347517,
+          "cumulative_train_s": 89.32005075004417,
+          "ms_per_step": 27.912515859388805
+        }
+      }
+    }
+  },
+  "ODE linear rk4 (steps=16)": {
+    "1": {
+      "meta": {
+        "path": "linear",
+        "solver": "rk4",
+        "ode_steps": 16
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.5685358643531799,
+          "elbo_mc_stderr": 0.03278432413935661,
+          "cumulative_train_s": 22.29377812508028,
+          "ms_per_step": 111.4688906254014
+        },
+        "400": {
+          "elbo": -0.16986671090126038,
+          "elbo_mc_stderr": 0.005499960854649544,
+          "cumulative_train_s": 44.74187500006519,
+          "ms_per_step": 111.85468750016298
+        },
+        "800": {
+          "elbo": -0.10500491410493851,
+          "elbo_mc_stderr": 0.0045556193217635155,
+          "cumulative_train_s": 89.55635266704485,
+          "ms_per_step": 111.94544083380606
+        },
+        "1600": {
+          "elbo": -0.07535654306411743,
+          "elbo_mc_stderr": 0.0037479980383068323,
+          "cumulative_train_s": 178.55949945910834,
+          "ms_per_step": 111.59968716194271
+        },
+        "3200": {
+          "elbo": -0.06474990397691727,
+          "elbo_mc_stderr": 0.0031870545353740454,
+          "cumulative_train_s": 355.7153356251074,
+          "ms_per_step": 111.16104238284606
+        }
+      }
+    }
+  },
+  "ODE linear rk4 (steps=32)": {
+    "3": {
+      "meta": {
+        "path": "linear",
+        "solver": "rk4",
+        "ode_steps": 32
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.685036301612854,
+          "elbo_mc_stderr": 0.01942439377307892,
+          "cumulative_train_s": 45.17511545890011,
+          "ms_per_step": 225.87557729450054
+        },
+        "400": {
+          "elbo": -0.31083619594573975,
+          "elbo_mc_stderr": 0.00942421704530716,
+          "cumulative_train_s": 90.09128454199526,
+          "ms_per_step": 225.22821135498816
+        },
+        "800": {
+          "elbo": -0.10601475089788437,
+          "elbo_mc_stderr": 0.004339257720857859,
+          "cumulative_train_s": 179.99809466698207,
+          "ms_per_step": 224.9976183337276
+        },
+        "1600": {
+          "elbo": -0.05029868707060814,
+          "elbo_mc_stderr": 0.002517460845410824,
+          "cumulative_train_s": 361.2109827499371,
+          "ms_per_step": 225.7568642187107
+        },
+        "3200": {
+          "elbo": -0.044158365577459335,
+          "elbo_mc_stderr": 0.002699990523979068,
+          "cumulative_train_s": 725.9313401249237,
+          "ms_per_step": 226.85354378903867
+        }
+      }
+    }
+  },
+  "ODE geometric euler (steps=4)": {
+    "2": {
+      "meta": {
+        "path": "geometric",
+        "solver": "euler",
+        "ode_steps": 4
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.8867390751838684,
+          "elbo_mc_stderr": 0.04098478704690933,
+          "cumulative_train_s": 2.0366973750060424,
+          "ms_per_step": 10.183486875030212
+        },
+        "400": {
+          "elbo": -0.37801429629325867,
+          "elbo_mc_stderr": 0.014323885552585125,
+          "cumulative_train_s": 4.027894458035007,
+          "ms_per_step": 10.069736145087518
+        },
+        "800": {
+          "elbo": -0.6770398616790771,
+          "elbo_mc_stderr": 0.013511319644749165,
+          "cumulative_train_s": 8.004748665960506,
+          "ms_per_step": 10.005935832450632
+        },
+        "1600": {
+          "elbo": -0.9301027059555054,
+          "elbo_mc_stderr": 0.012465097941458225,
+          "cumulative_train_s": 16.091808666009456,
+          "ms_per_step": 10.05738041625591
+        },
+        "3200": {
+          "elbo": -0.9793509244918823,
+          "elbo_mc_stderr": 0.011867078021168709,
+          "cumulative_train_s": 32.515804124996066,
+          "ms_per_step": 10.16118878906127
+        }
+      }
+    }
+  },
+  "ODE geometric euler (steps=16)": {
+    "1": {
+      "meta": {
+        "path": "geometric",
+        "solver": "euler",
+        "ode_steps": 16
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.5536054372787476,
+          "elbo_mc_stderr": 0.03389473631978035,
+          "cumulative_train_s": 7.153743250062689,
+          "ms_per_step": 35.768716250313446
+        },
+        "400": {
+          "elbo": -0.15754619240760803,
+          "elbo_mc_stderr": 0.006511949002742767,
+          "cumulative_train_s": 14.253706917050295,
+          "ms_per_step": 35.634267292625736
+        },
+        "800": {
+          "elbo": -0.10114586353302002,
+          "elbo_mc_stderr": 0.0046648504212498665,
+          "cumulative_train_s": 28.408480667043477,
+          "ms_per_step": 35.51060083380435
+        },
+        "1600": {
+          "elbo": -0.08179477602243423,
+          "elbo_mc_stderr": 0.004218081012368202,
+          "cumulative_train_s": 56.790432124980725,
+          "ms_per_step": 35.49402007811295
+        },
+        "3200": {
+          "elbo": -0.07521723210811615,
+          "elbo_mc_stderr": 0.0039572082459926605,
+          "cumulative_train_s": 113.6978820420336,
+          "ms_per_step": 35.5305881381355
+        }
+      }
+    }
+  },
+  "ODE geometric euler (steps=32)": {
+    "3": {
+      "meta": {
+        "path": "geometric",
+        "solver": "euler",
+        "ode_steps": 32
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.6274886727333069,
+          "elbo_mc_stderr": 0.01870390586555004,
+          "cumulative_train_s": 14.290226457989775,
+          "ms_per_step": 71.45113228994887
+        },
+        "400": {
+          "elbo": -0.2354576289653778,
+          "elbo_mc_stderr": 0.007054262328892946,
+          "cumulative_train_s": 28.527055541984737,
+          "ms_per_step": 71.31763885496184
+        },
+        "800": {
+          "elbo": -0.11025352776050568,
+          "elbo_mc_stderr": 0.00486918305978179,
+          "cumulative_train_s": 56.8262848330196,
+          "ms_per_step": 71.0328560412745
+        },
+        "1600": {
+          "elbo": -0.05451159179210663,
+          "elbo_mc_stderr": 0.0029144964646548033,
+          "cumulative_train_s": 113.40935312502552,
+          "ms_per_step": 70.88084570314095
+        },
+        "3200": {
+          "elbo": -0.04711613804101944,
+          "elbo_mc_stderr": 0.003056008368730545,
+          "cumulative_train_s": 227.4112062919885,
+          "ms_per_step": 71.0660019662464
+        }
+      }
+    }
+  },
+  "ODE geometric midpoint (steps=8)": {
+    "2": {
+      "meta": {
+        "path": "geometric",
+        "solver": "midpoint",
+        "ode_steps": 8
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.7576760053634644,
+          "elbo_mc_stderr": 0.030985644087195396,
+          "cumulative_train_s": 7.112423166981898,
+          "ms_per_step": 35.56211583490949
+        },
+        "400": {
+          "elbo": -0.21651077270507812,
+          "elbo_mc_stderr": 0.007649296894669533,
+          "cumulative_train_s": 14.113899874966592,
+          "ms_per_step": 35.28474968741648
+        },
+        "800": {
+          "elbo": -0.11248932778835297,
+          "elbo_mc_stderr": 0.0038541173562407494,
+          "cumulative_train_s": 28.133728416985832,
+          "ms_per_step": 35.16716052123229
+        },
+        "1600": {
+          "elbo": -0.08157921582460403,
+          "elbo_mc_stderr": 0.003910708241164684,
+          "cumulative_train_s": 56.11377454199828,
+          "ms_per_step": 35.071109088748926
+        },
+        "3200": {
+          "elbo": -0.057792048901319504,
+          "elbo_mc_stderr": 0.003547998843714595,
+          "cumulative_train_s": 112.06585845898371,
+          "ms_per_step": 35.02058076843241
+        }
+      }
+    }
+  },
+  "ODE geometric midpoint (steps=32)": {
+    "1": {
+      "meta": {
+        "path": "geometric",
+        "solver": "midpoint",
+        "ode_steps": 32
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.5736216902732849,
+          "elbo_mc_stderr": 0.032902736216783524,
+          "cumulative_train_s": 28.476621208013967,
+          "ms_per_step": 142.38310604006983
+        },
+        "400": {
+          "elbo": -0.1596403270959854,
+          "elbo_mc_stderr": 0.005594952031970024,
+          "cumulative_train_s": 56.693124667042866,
+          "ms_per_step": 141.73281166760717
+        },
+        "800": {
+          "elbo": -0.10554400086402893,
+          "elbo_mc_stderr": 0.00422026077285409,
+          "cumulative_train_s": 113.2712991250446,
+          "ms_per_step": 141.58912390630576
+        },
+        "1600": {
+          "elbo": -0.07731952518224716,
+          "elbo_mc_stderr": 0.003714097198098898,
+          "cumulative_train_s": 225.68715074995998,
+          "ms_per_step": 141.054469218725
+        },
+        "3200": {
+          "elbo": -0.06902820616960526,
+          "elbo_mc_stderr": 0.003422059118747711,
+          "cumulative_train_s": 450.62846599996556,
+          "ms_per_step": 140.82139562498924
+        }
+      }
+    }
+  },
+  "ODE geometric rk4 (steps=4)": {
+    "3": {
+      "meta": {
+        "path": "geometric",
+        "solver": "rk4",
+        "ode_steps": 4
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.6365153789520264,
+          "elbo_mc_stderr": 0.01843278668820858,
+          "cumulative_train_s": 7.053790750098415,
+          "ms_per_step": 35.268953750492074
+        },
+        "400": {
+          "elbo": -0.22950083017349243,
+          "elbo_mc_stderr": 0.006763699930161238,
+          "cumulative_train_s": 14.073250750079751,
+          "ms_per_step": 35.18312687519938
+        },
+        "800": {
+          "elbo": -0.09598692506551743,
+          "elbo_mc_stderr": 0.004046816844493151,
+          "cumulative_train_s": 28.13760070805438,
+          "ms_per_step": 35.17200088506797
+        },
+        "1600": {
+          "elbo": -0.05040210112929344,
+          "elbo_mc_stderr": 0.002650831826031208,
+          "cumulative_train_s": 56.19456070801243,
+          "ms_per_step": 35.12160044250777
+        },
+        "3200": {
+          "elbo": -0.046669282019138336,
+          "elbo_mc_stderr": 0.002776708221063018,
+          "cumulative_train_s": 112.6298742920626,
+          "ms_per_step": 35.19683571626956
+        }
+      }
+    }
+  },
+  "ODE geometric rk4 (steps=16)": {
+    "2": {
+      "meta": {
+        "path": "geometric",
+        "solver": "rk4",
+        "ode_steps": 16
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.753469705581665,
+          "elbo_mc_stderr": 0.03089149296283722,
+          "cumulative_train_s": 28.321479417034425,
+          "ms_per_step": 141.60739708517212
+        },
+        "400": {
+          "elbo": -0.2135608196258545,
+          "elbo_mc_stderr": 0.007618201896548271,
+          "cumulative_train_s": 56.60413629200775,
+          "ms_per_step": 141.51034073001938
+        },
+        "800": {
+          "elbo": -0.11057224869728088,
+          "elbo_mc_stderr": 0.003883643075823784,
+          "cumulative_train_s": 113.07426575000864,
+          "ms_per_step": 141.3428321875108
+        },
+        "1600": {
+          "elbo": -0.08361946791410446,
+          "elbo_mc_stderr": 0.0038316738791763783,
+          "cumulative_train_s": 227.90360170905478,
+          "ms_per_step": 142.43975106815924
+        },
+        "3200": {
+          "elbo": -0.05899211764335632,
+          "elbo_mc_stderr": 0.003582600736990571,
+          "cumulative_train_s": 454.7656179589685,
+          "ms_per_step": 142.11425561217766
+        }
+      }
+    }
+  },
+  "ODE geometric dopri5": {
+    "1": {
+      "meta": {
+        "path": "geometric",
+        "solver": "dopri5"
+      },
+      "checkpoints": {
+        "200": {
+          "elbo": -0.5738599300384521,
+          "elbo_mc_stderr": 0.03290865197777748,
+          "cumulative_train_s": 14.209411416901276,
+          "ms_per_step": 71.04705708450638
+        },
+        "400": {
+          "elbo": -0.16088330745697021,
+          "elbo_mc_stderr": 0.005619529169052839,
+          "cumulative_train_s": 34.570344874984585,
+          "ms_per_step": 86.42586218746146
+        },
+        "800": {
+          "elbo": -0.10605944693088531,
+          "elbo_mc_stderr": 0.004386864136904478,
+          "cumulative_train_s": 80.68256916699465,
+          "ms_per_step": 100.85321145874332
+        },
+        "1600": {
+          "elbo": -0.07653209567070007,
+          "elbo_mc_stderr": 0.0036968167405575514,
+          "cumulative_train_s": 175.70023191696964,
+          "ms_per_step": 109.81264494810603
+        },
+        "3200": {
+          "elbo": -0.06804412603378296,
+          "elbo_mc_stderr": 0.0034013933036476374,
+          "cumulative_train_s": 362.738561041886,
+          "ms_per_step": 113.35580032558937
+        }
+      }
+    }
+  }
+}

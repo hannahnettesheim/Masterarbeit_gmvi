@@ -1,0 +1,43 @@
+Here are the instructions for the visualizations. 
+
+1) The Visualizations will be goint into my thesis. At most with full width. 
+The document is the follwoing: \documentclass[a4paper,twoside,11pt]{scrreprt} with textwidth TEXTWIDTH = 418pt and
+font size 11pt. I want the fontsize to match my thesis (for headers ect.) and tick labels perhaps around 8 pt.
+
+the font should match the latex font. best use 
+plt.rcParams.update({
+    "text.usetex": True,
+    "font.family": "serif",
+    "font.size": 11,
+
+}) or something similar
+plt.savefig("plot.pdf", bbox_inches="tight")
+If the possibility exists, use the latex terms as found in \Masterarbeit_Overleaf/Thesis/Chapters
+
+
+2) I want the color scheme to be consistent. Plese use the follwoing colors: 
+
+    "score_function":   "#E63946",   # red
+    "gumbel_softmax":   "#457B9D",   # blue
+    "ode_transport":    "#2A9D8F",   # teal (new method)
+    "target":           "#264653",
+    "samples":          "#A8DADC",
+    
+    or for heat maps: 
+
+# ColorBrewer RdBu-5: dark blue → mid blue → gray → mid red → dark red
+COLORS  = ["#2166AC", "#4393C3", "#878787", "#D6604D", "#B2182B"]
+
+
+3) Place new visualizations in the /Users/Hannah/UNI/Masterarbeit/Visualizations file.
+
+4) include a possible caption-comment in the .py file. 
+The caption should not be in the plot, it should be suitable for the latex snippet below. The plot should have a proper title.
+% \begin{figure}[t!]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{Thesis/figures/}
+%     \caption{}
+%     \label{fig:}
+% \end{figure}
+
+
